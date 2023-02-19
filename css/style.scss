@@ -134,12 +134,13 @@ body{
     #bloc-meteo{
         width: 100%;
         min-width: 0;
-        height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         .left-bloc{
+            padding: 32px;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             border-radius: 0;
             z-index: 2;
             display: flex;
@@ -159,6 +160,7 @@ body{
             position: absolute;
             bottom: 0;
             z-index: 3;
+            padding: 32px;
             .next-days{
                 margin-bottom: 20px;
             }
