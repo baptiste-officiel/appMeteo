@@ -46,8 +46,8 @@ body{
 
 #bloc-meteo{
     width: 45%;
-    min-width: 450px;
-    height: 400px;
+    min-width: 650px;
+    height: 500px;
     @include flexCenter();
     position: absolute;
     top: 50%;
@@ -119,6 +119,48 @@ body{
                 p{
                     font-size: 0.8rem;
                 }
+            }
+        }
+    }
+}
+
+
+
+
+
+// ------------------------- media queries ----------------------- 
+@media screen and (max-width: 728px) {
+
+    #bloc-meteo{
+        width: 100%;
+        min-width: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        .left-bloc{
+            width: 100%;
+            height: 100vh;
+            border-radius: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            .left-bloc-title{
+                background: rgba($color: #f1f1f1, $alpha: 0.7);
+                margin-top: 20px;
+            }
+        }
+        .right-bloc{
+            width: 100%;
+            height: 30%;
+            background-color: rgba($color: $background-right, $alpha: 0.9);
+            transform: translateX(0);
+            border-radius: 0;
+            position: absolute;
+            bottom: 0;
+            z-index: 3;
+            .next-days{
+                margin-bottom: 20px;
             }
         }
     }
