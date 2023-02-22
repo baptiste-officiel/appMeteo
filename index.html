@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Météo</title>
-    <link rel="shortcut icon" type="image/png" href="./img/logo_sun.png"/>
+    <link rel="shortcut icon" type="image/png" href="./img/logo_sun.png" />
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    
+
     <div id="bloc-meteo">
         <div class="bloc left-bloc">
             <div class="left-bloc-title">
                 <!-- <h4 id="day">Today</h4> -->
-            <p id="localisation"></p>
+                <p id="localisation"></p>
             </div>
-            <p id="temperature"></p>
+            <div class="temperatures">
+                <p id="temperature"></p>
+                <div class="min-max">
+                    <p class="item-temperature" id="temperature-max"></p>
+                    <p class="item-temperature" id="temperature-min"></p>
+                </div>
+            </div>
         </div>
         <div class="bloc right-bloc">
             <div class="supp-data">
@@ -39,4 +48,5 @@
 </body>
 
 <script src="./js/script.js"></script>
+
 </html>

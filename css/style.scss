@@ -31,6 +31,11 @@ $background-right: #232933;
     @include bg-position();
 }
 
+.background-night{
+    background: url('../img/night.jpg');
+    @include bg-position();
+}
+
 
 *, ::before, ::after{
     box-sizing: border-box;
@@ -62,7 +67,7 @@ body{
         @include flexBetween();
         padding: 2vW;
         .left-bloc-title{
-            background: rgba($color: $background-right, $alpha: 0.9);
+            // background: rgba($color: $background-right, $alpha: 0.9);
             color: white;
             // color: $background-right;
             padding: 20px;
@@ -72,19 +77,44 @@ body{
             }
             #localisation{
                 // margin-top: -200px;
-                font-size: 1.6rem;
+                font-size: 1.3rem;
                 font-weight: 300;
+                text-shadow: 0 0 2px $background-color;
             }
         }
+    }
+}
+
+.left-bloc{
+    .temperatures{
+        display: flex;
         #temperature{
-            font-size: 2.9rem;
-            font-weight: 400;
+            font-size: 4.2rem;
+            font-weight: 300;
             // color: $;
-            text-shadow: 0 0 1px $background-color;
+            text-shadow: 0 0 2px $background-color;
             // padding: 20px;
             padding-left: 20px;
         }
+        .min-max{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-left: 20px;
+            .item-temperature{
+                display: flex;
+                align-items: center;
+                img{
+                    height: 15px;
+                    width: 15px;
+                    margin: 0 6px;
+                }
+            }
+        }
     }
+}
+
+#bloc-meteo{
     .right-bloc{
         width: 55%;
         height: 95%;
@@ -163,8 +193,10 @@ body{
             }
             #temperature{
                 // color: $;
-                text-shadow: none;
-                background-color: rgba($color: $background-right, $alpha: 0.9);
+                // text-shadow: none;
+                // background-color: rgba($color: $background-right, $alpha: 0.9);
+                // background-color: white;
+                margin-top: -15px;
                 padding: 10px;
                 width: 300px;
                 border-bottom-right-radius: 10px;
@@ -173,7 +205,7 @@ body{
         }
         .right-bloc{
             width: 90%;
-            height: 30%;
+            height: auto;
             background-color: rgba($color: $background-right, $alpha: 1);
             transform: translateX(0);
             border-radius: 10px;
@@ -182,7 +214,30 @@ body{
             z-index: 3;
             padding: 32px;
             .next-days{
-                margin-bottom: 20px;
+                margin: 30px 0 0;
+            }
+        }
+    }
+}
+
+.left-bloc{
+    .temperatures{
+        display: flex;
+        flex-direction: column;
+        .min-max{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 0;
+            .item-temperature{
+                display: flex;
+                align-items: center;
+                padding: 0 6px;
+                img{
+                    height: 15px;
+                    width: 15px;
+                    margin: 0 3px;
+                }
             }
         }
     }
