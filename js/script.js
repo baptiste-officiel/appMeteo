@@ -48,8 +48,8 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hour
         lieu.innerText = data.timezone;
         temperatureActuelle.innerText = Math.round(data.current_weather.temperature) + '°C';
 
-        temperatureMin.innerHTML = `<img src="../img/arrow-down.svg" alt="" />${Math.round(data.daily.temperature_2m_min[0])}°`;
-        temperatureMax.innerHTML = `<img src="../img/arrow-up.svg" alt="" />${Math.round(data.daily.temperature_2m_max[0])}°`;
+        temperatureMin.innerHTML = `<img src="img/arrow-down.svg" alt="" />${Math.round(data.daily.temperature_2m_min[0])}°`;
+        temperatureMax.innerHTML = `<img src="img/arrow-up.svg" alt="" />${Math.round(data.daily.temperature_2m_max[0])}°`;
     }
 
     function backgroundActuel(precipitationsData){
