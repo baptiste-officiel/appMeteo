@@ -1,6 +1,7 @@
 $background-color: #343D4C;
 $background-left: #3A5F99;
 $background-right: #232933;
+$txt-color: rgb(233, 233, 233);
 
 @mixin flexBetween{
     display: flex;
@@ -22,6 +23,14 @@ $background-right: #232933;
     background: url('../img/sun.jpg');
     @include bg-position();
 }
+.background-sunny-clouds{
+    background: url('../img/sunny-clouds.jpg');
+    @include bg-position();
+}
+.background-grey-clouds{
+    background: url('../img/grey-clouds.jpg');
+    @include bg-position();
+}
 .background-little-rain{
     background: url('../img/little-rain.jpg');
     @include bg-position();
@@ -30,7 +39,6 @@ $background-right: #232933;
     background: url('../img/big-rain.jpg');
     @include bg-position();
 }
-
 .background-night{
     background: url('../img/night.jpg');
     @include bg-position();
@@ -46,7 +54,7 @@ $background-right: #232933;
 body{
     background-color: $background-color;
     font-family: 'Montserrat', sans-serif;
-    color: rgb(233, 233, 233);
+    color: $txt-color;
 }
 
 #bloc-meteo{
@@ -68,7 +76,7 @@ body{
         padding: 2vW;
         .left-bloc-title{
             // background: rgba($color: $background-right, $alpha: 0.9);
-            color: white;
+            // color: rgb(233, 233, 233);
             // color: $background-right;
             padding: 20px;
             border-radius: 10px;
@@ -88,22 +96,24 @@ body{
 .left-bloc{
     .temperatures{
         display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-left: 14px;
         #temperature{
             font-size: 4.2rem;
             font-weight: 300;
             // color: $;
             text-shadow: 0 0 2px $background-color;
             // padding: 20px;
-            padding-left: 20px;
+            padding-left: 6px;
         }
         .min-max{
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding-left: 20px;
+            // justify-content: space-between;
+            // align-items: flex-start;
             .item-temperature{
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 img{
                     height: 15px;
                     width: 15px;
@@ -123,37 +133,62 @@ body{
         z-index: 1;
         border-bottom-right-radius: 20px;
         border-top-right-radius: 20px;
-        @include flexBetween();
+        // @include flexBetween();
         padding: 2vw;
         .supp-data{
             line-height: 1.6rem;
-            width: 80%;
-            p{
-                text-align: justify;
-                width: 100%;
-                display: flex;
-                img{
-                    width: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            .infos{
+                h6{
+                    text-transform: uppercase;
+                    font-weight: 200;
+                    display: flex;
+                    // justify-content: center;
+                    align-items: center;
+                    img{
+                        width: 15px;
+                        height: 15px;
+                        margin-right: 6px;
+                    }
+                }
+                p{
+                    text-align: justify;
+                    width: 100%;
+                    display: flex;
                 }
             }
         }
         .next-days{
-            margin-bottom: 60px;
+            margin: 80px auto 60px;
             display: flex;
+            flex-direction: column;
             .day{
-                text-align: center;
-                background-color: rgb(233, 233, 233);
-                color: $background-right;
+                // text-align: center;
+                // background-color: rgb(233, 233, 233);
+                // color: $background-right;
+                border: 1px solid $txt-color;
                 padding: 10px 15px;
                 border-radius: 8px;
-                h6{
-                    padding-bottom: 10px;
-                    text-transform: uppercase;
-                    font-weight: 400;
-                    font-size: 0.6rem;
-                }
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
                 p{
                     font-size: 0.8rem;
+                    &.week-day_temp{
+                        display: flex;
+                        // width: 50%;
+                        align-items: center;
+                        justify-content: space-between;
+                        img{
+                            width: 15px;
+                            margin: 0 6px 0 12px;
+                        }
+                    }
+                    &.week-day-img img{
+                        width: 25px;
+                    }
                 }
             }
         }
@@ -224,6 +259,9 @@ body{
     .temperatures{
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: 0;
         .min-max{
             display: flex;
             justify-content: center;

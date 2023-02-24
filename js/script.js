@@ -10,9 +10,10 @@ const precipitations = document.getElementById('precipitations');
 const wind = document.getElementById('wind');
 
 const weekDayTemp = document.querySelector('.week-day_temp');
+const weekDayImg = document.querySelector('.week-day-img');
 
 
-fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hourly=temperature_2m,rain&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum&current_weather=true&timezone=auto')
+fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hourly=temperature_2m,cloudcover,rain&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum&current_weather=true&timezone=auto')
     .then(res => res.json())
     .then(data => {
         console.log(data);
@@ -21,16 +22,21 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hour
         // ------ left-bloc -----
         infosActuelles(data);
 
-        // -------- right-bloc / precipitations and wind ------ 
+        // -------- right-bloc / precipitations, cloud and wind ------ 
+        // Les données nuages étant dans hourly je récupère en utilisant l'heure comme index
+        let cloudData = data.hourly.cloudcover[hour];
+        console.log("🚀 ~ file: script.js:26 ~ cloudData:", cloudData)
+
         let precipitationsData = data.daily.precipitation_sum[0];
+        let precipitationsTomorrow = data.daily.precipitation_sum[1];
         let windData = data.current_weather.windspeed;
 
-        backgroundActuel(precipitationsData)
+        backgroundActuel(precipitationsData, cloudData)
         
-        precipitations.innerHTML = '<img src="img/water.svg" alt="Précipitations" />  &nbsp&nbsp' + precipitationsData + 'mm';
-        wind.innerHTML = '<img src="img/wind.svg" alt="Précipitations" />  &nbsp&nbsp' + windData + 'km/h';
+        precipitations.innerHTML = precipitationsData + 'mm';
+        wind.innerHTML = windData + 'km/h';
 
-        weekDayTemp.innerHTML = data.daily.temperature_2m_min[1] +  '°C <br> ' + data.daily.temperature_2m_max[1] + '°C';
+        weekDayTemp.innerHTML = `<img src="img/arrow-down.svg" alt="" />${data.daily.temperature_2m_min[1]}° <img src="img/arrow-up.svg" alt="" />${data.daily.temperature_2m_max[1]}°`;
 
 
         let sunset = (data.daily.sunset[0]).substr(11, 5);
@@ -41,8 +47,28 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hour
 
         nightHour(sunset, sunrise);
 
+        let cloudsTomorrow = 0;
+        let clouds = [];
+        for (let i = 24; i < 48; i++) {
+            // console.log(data.hourly.cloudcover[i])
+            clouds.push(data.hourly.cloudcover[i]);
+            // console.log("🚀 ~ file: script.js:53 ~ clouds:", clouds)
+            cloudsTomorrow += data.hourly.cloudcover[i];
+            // console.log("🚀 ~ file: script.js:55 ~ cloudsTomorrow:", cloudsTomorrow)
+            // cloudsTomorrow = cloudsTomorrow/24;
+            // console.log(1050/24);
+            // console.log("🚀 ~ file: script.js:49 ~ cloudsTomorrow:", cloudsTomorrow)
+        }
+        cloudsTomorrow = cloudsTomorrow/24
+        console.log("🚀 ~ file: script.js:60 ~ moyenne:", cloudsTomorrow)
+
+        weatherIcon(precipitationsTomorrow, cloudsTomorrow);
+
         
     });
+
+
+
 
     function infosActuelles(data){
         lieu.innerText = data.timezone;
@@ -52,23 +78,41 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hour
         temperatureMax.innerHTML = `<img src="img/arrow-up.svg" alt="" />${Math.round(data.daily.temperature_2m_max[0])}°`;
     }
 
-    function backgroundActuel(precipitationsData){
+    function backgroundActuel(precipitationsData, cloudData){
         if (precipitationsData > 0 && precipitationsData <= 5) {
             blocActuel.classList.add('background-little-rain');
         } else if (precipitationsData > 5) {
             blocActuel.classList.add('background-big-rain');
+        } else if (cloudData > 30 && cloudData < 75){
+            blocActuel.classList.add('background-sunny-clouds');
+        } else if (cloudData >= 75){
+        blocActuel.classList.add('background-grey-clouds');
         } else {
-            blocActuel.classList.add('background-sun');
+        blocActuel.classList.add('background-sun');
+        }
+    }
+
+    function weatherIcon(precipitationsTomorrow, cloudsTomorrow){
+        if (precipitationsTomorrow >= 5) {
+            weekDayImg.innerHTML = `<img src="../img/rain.svg" alt="pluvieux" />`;
+        } else if (cloudsTomorrow >= 30 && cloudsTomorrow < 65){
+            weekDayImg.innerHTML = `<img src="../img/sun-cloud.svg" alt="nuage soleil" />`;
+        } else if (cloudsTomorrow >= 75){
+            weekDayImg.innerHTML = `<img src="../img/cloud.svg" alt="nuageux" />`;
+        } else {
+            weekDayImg.innerHTML = `<img src="../img/sun.svg" alt="ensoleillé" />`;
         }
     }
 
     console.log(document.querySelector('.week-day_temp'))
 
+
+    let date = new Date();
+console.log("🚀 ~ file: script.js:56 ~ date:", date)
+const hour = date.getHours();
+let minutes = date.getMinutes();
+
     function nightHour(sunset, sunrise){
-        let date = new Date();
-    console.log("🚀 ~ file: script.js:56 ~ date:", date)
-    const hour = date.getHours();
-    let minutes = date.getMinutes();
     (minutes >= 0 && minutes < 10) ? minutes = `0${minutes}` : minutes;
     let heureActuelle = `${hour}:${minutes}`;
     console.log("🚀 ~ file: script.js:46 ~ heureActuelle:", heureActuelle);
