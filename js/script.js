@@ -94,13 +94,13 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=48.86&longitude=2.35&hour
 
     function weatherIcon(precipitationsTomorrow, cloudsTomorrow){
         if (precipitationsTomorrow >= 5) {
-            weekDayImg.innerHTML = `<img src="../img/rain.svg" alt="pluvieux" />`;
+            weekDayImg.innerHTML = `<img src="./img/rain.svg" alt="pluvieux" />`;
         } else if (cloudsTomorrow >= 30 && cloudsTomorrow < 65){
-            weekDayImg.innerHTML = `<img src="../img/sun-cloud.svg" alt="nuage soleil" />`;
+            weekDayImg.innerHTML = `<img src="./img/sun-cloud.svg" alt="nuage soleil" />`;
         } else if (cloudsTomorrow >= 75){
-            weekDayImg.innerHTML = `<img src="../img/cloud.svg" alt="nuageux" />`;
+            weekDayImg.innerHTML = `<img src="./img/cloud.svg" alt="nuageux" />`;
         } else {
-            weekDayImg.innerHTML = `<img src="../img/sun.svg" alt="ensoleillé" />`;
+            weekDayImg.innerHTML = `<img src="./img/sun.svg" alt="ensoleillé" />`;
         }
     }
 
